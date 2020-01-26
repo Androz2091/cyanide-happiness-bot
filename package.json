@@ -1,0 +1,34 @@
+{
+    "name": "cyanide-happiness-bot",
+    "version": "1.0.0",
+    "description": "Bot du Discord Cyanide and Happiness VF",
+    "main": "index.js",
+    "scripts": {
+      "test": "node index.js",
+      "format": "prettier --write \"*.js\" --tab-width 4"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Androz2091/cyanide-happiness-bot.git"
+    },
+    "keywords": [
+        "cyanide",
+        "happiness",
+        "instagram",
+        "bot",
+        "discord"
+    ],
+    "author": "Androz2091",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/Androz2091/cyanide-happiness-bot/issues"
+    },
+    "dependencies": {
+        "discord.js": "^11.5.1",
+        "@kaki87/ig-scraper": "^1.0.10"
+    },
+    "devDependencies": {
+        "prettier": "^1.19.1"
+    }
+}
+  

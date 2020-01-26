@@ -1,0 +1,9 @@
+# Config
+config.json
+
+# Node
+package-lock.json
+node_modules
+
+# Tests
+**test**

@@ -1,0 +1,14 @@
+{
+
+    "INSTA_USERNAME": "cyanidehappinessvf2",
+    "POSTS_CHANNEL": "ID du channel dans lequel les nouveaux posts seront envoyés",
+    "BOT_TOKEN": "Token du bot discord",
+    "MESSAGE": ":fire: **NOUVEAU POST**\n\n{{link}}\n\n> {{caption}}\n\n:heart: Likes: **{{likeCount}}**",
+
+    "CONFIG_AVANCEE": "VOUS NE DEVRIEZ PAS MODIFIER LES OPTIONS CI DESSOUS",
+
+    "INSTA_INTERVAL": 1000,
+    "MESSAGE_UPDATE_INTERVAL": 3600000,
+    "FORCE_PUSH_START": false
+
+}
