@@ -1,4 +1,5 @@
 console.log("[!] Starting...");
+const updateLikes = require("./updateLikes");
 
 // Récupération des données de la config
 const {
