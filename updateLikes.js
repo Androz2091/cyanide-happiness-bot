@@ -8,14 +8,14 @@ module.exports = async (channel, InstaClient) => {
         .sort((a, b) => a.createdTimestamp - b.createdTimestamp)
         .forEach(async message => {
             // Parse le message pour obtenir le shortcode dans le lien
-            let shortcode = message.match(
+            let shortcode = message.content.match(
                 /(https:\/\/www\.instagram\.com\/p\/)([\w]{11})/
-            )[1];
+            )[2];
             // Récupère le post mis à jour
             let post = await InstaClient.getPost(shortcode);
             // Mets à jour le nombre de likes
-            let oldLikeCount = message.split(": ").pop();
-            let updatedMessage = message.replace(oldLikeCount, post.likes);
+            let oldLikeCount = message.content.split(": ").pop();
+            let updatedMessage = message.content.replace(oldLikeCount, `**${post.likes}**`);
             // Edite le message
             message.edit(updatedMessage);
             console.log("[!] Message #" + message.id + " updated.");
