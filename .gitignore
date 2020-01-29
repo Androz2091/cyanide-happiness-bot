@@ -7,3 +7,6 @@ node_modules
 
 # Tests
 **test**
+
+# Logs
+bot.log
