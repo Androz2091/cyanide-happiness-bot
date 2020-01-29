@@ -88,8 +88,9 @@ client.on("ready", async () => {
                     log.info(`New post found: ${lastPost}`);
                 }
             })
-            .catch(() => {
-                log.error(`Cannot fetch ${INSTA_USERNAME}.`);
+            .catch((error) => {
+                log.log(`Cannot fetch ${INSTA_USERNAME}.`);
+                log.log(error);
             });
     }, INSTA_INTERVAL);
 });
