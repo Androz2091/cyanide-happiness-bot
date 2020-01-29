@@ -1,4 +1,4 @@
-module.exports = async (channel, InstaClient) => {
+module.exports = async (channel, InstaClient, log) => {
     // Fetch les 10 derniers messages du salon
     let messages = await channel.fetchMessages({ limit: 10 });
     messages
@@ -15,9 +15,12 @@ module.exports = async (channel, InstaClient) => {
             let post = await InstaClient.getPost(shortcode);
             // Mets à jour le nombre de likes
             let oldLikeCount = message.content.split(": ").pop();
-            let updatedMessage = message.content.replace(oldLikeCount, `**${post.likes}**`);
+            let updatedMessage = message.content.replace(
+                oldLikeCount,
+                `**${post.likes}**`
+            );
             // Edite le message
             message.edit(updatedMessage);
-            console.log("[!] Message #" + message.id + " updated.");
+            log.info(`[!] Message #${message.id} updated.`);
         });
 };
