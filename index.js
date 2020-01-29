@@ -15,7 +15,7 @@ const {
     FORCE_PUSH_START, // Si le message pour le dernier post doit être envoyé au démarrage
     LOG_LEVEL // Le niveau de log
 } = require("./config.json");
-log.setLevel(LOG_LEVEL);
+//log.setLevel(LOG_LEVEL);
 
 // Initialisation du client Instagram
 const Insta = require("@kaki87/ig-scraper");
@@ -86,6 +86,8 @@ client.on("ready", async () => {
                     lastPost = profile.lastPosts[0].shortcode;
                     sendPost(lastPost);
                     log.info(`New post found: ${lastPost}`);
+                } else {
+                    log.log("No new post found.");
                 }
             })
             .catch((error) => {
