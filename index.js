@@ -1,4 +1,6 @@
-console.log("[!] Starting...");
+const log = require("simple-node-logger").createSimpleLogger("bot.log");
+log.info("[!] Starting...");
+
 const updateLikes = require("./updateLikes");
 
 // Récupération des données de la config
@@ -10,12 +12,17 @@ const {
 
     INSTA_INTERVAL, // L'interval en ms pour check les nouveaux posts
     MESSAGE_UPDATE_INTERVAL, // L'interval de temps pour mettre à jour les likes
-    FORCE_PUSH_START // Si le message pour le dernier post doit être envoyé au démarrage
+    FORCE_PUSH_START, // Si le message pour le dernier post doit être envoyé au démarrage
+    LOG_LEVEL // Le niveau de log
 } = require("./config.json");
+log.setLevel(LOG_LEVEL);
 
 // Initialisation du client Instagram
 const Insta = require("@kaki87/ig-scraper");
 const InstaClient = new Insta();
+
+// Le dernier post (cache)
+let lastPost = null;
 
 // Initialisation du client Discord
 const Discord = require("discord.js");
@@ -25,26 +32,26 @@ const client = new Discord.Client();
 client.login(BOT_TOKEN);
 
 client.on("ready", async () => {
-    console.log("[!] Ready. Logged as " + client.user.tag + ".");
+    log.info("[!] Ready. Logged as " + client.user.tag + ".");
 
     // Récupération du dernier post
-    let lastPost = null;
     let user = await InstaClient.getProfile(INSTA_USERNAME);
     lastPost = user.lastPosts[0].shortcode;
-    console.log("[!] Last post found: " + lastPost);
+    log.info(`Last post found: ${lastPost}`);
 
     // Salon des posts
     let postsChannel = client.channels.get(POSTS_CHANNEL);
-    console.log("[!] Posts will be sent in #" + postsChannel.name);
+    log.info(`[!] Posts will be sent in # ${postsChannel.name}`);
 
-    console.log("[!] Starting like updates.");
-    updateLikes(postsChannel, InstaClient);
+    log.info(`[!] Starting like updates.`);
+    updateLikes(postsChannel, InstaClient, log);
     // Toutes les heures, mise à jour du compteur de likes sur chaque message
     setInterval(
         updateLikes,
         MESSAGE_UPDATE_INTERVAL,
         postsChannel,
-        InstaClient
+        InstaClient,
+        log
     );
 
     // Envoi d'un post
@@ -71,12 +78,18 @@ client.on("ready", async () => {
         sendPost(lastPost);
 
     // Pour les prochains posts
-    InstaClient.subscribeUserPosts(INSTA_USERNAME, INSTA_INTERVAL).subscribe({
-        next: shortcode => {
-            sendPost(shortcode);
-        },
-        error: err => {
-            console.error(err);
-        }
-    });
+    setInterval(() => {
+        InstaClient.getProfile(INSTA_USERNAME)
+            .then(profile => {
+                // Si le dernier post n'est pas le même que celui en cache
+                if (profile.lastPosts[0].shortcode !== lastPost) {
+                    lastPost = profile.lastPosts[0].shortcode;
+                    sendPost(lastPost);
+                    log.info(`New post found: ${lastPost}`);
+                }
+            })
+            .catch(() => {
+                log.error(`Cannot fetch ${INSTA_USERNAME}.`);
+            });
+    }, INSTA_INTERVAL);
 });
