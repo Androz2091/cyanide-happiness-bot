@@ -14,7 +14,7 @@ class Help extends Command {
     }
 
     async run(message, args, data) {
-        message.error("Not available yet.");
+        message.channel.send(":crown: **Fondateurs**\r\n\r\n`!upload`: Transfert de nouvelles publications vers le serveur.\r\n`!post`: Poste de nouvelles publications.\r\n\r\n:man_detective: **D\u00E9veloppeur**\r\n\r\n`!eval`: Ex\u00E9cute du code javascript.\r\n\r\n:baby_chick: **Utilisateurs**\r\n\r\n`!random`: Affiche une publication al\u00E9atoire.\r\n`!insta`: Affiche des informations sur le compte Instagram de Cyanide and Happiness VF.");
     }
 }
 
