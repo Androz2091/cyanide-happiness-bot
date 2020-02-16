@@ -1,5 +1,5 @@
 # Config
-config.json
+config.js
 
 # Node
 package-lock.json
@@ -10,3 +10,6 @@ node_modules
 
 # Logs
 bot.log
+
+# Mac os
+.DS_Store
