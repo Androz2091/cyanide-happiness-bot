@@ -25,7 +25,10 @@
     },
     "dependencies": {
         "@kaki87/ig-scraper": "^1.0.10",
-        "discord.js": "^11.5.1",
+        "chalk": "^3.0.0",
+        "discord-paginationembed": "^2.0.0-beta.3",
+        "discord.js": "github:discordjs/discord.js",
+        "fetch-base64": "^2.1.2",
         "simple-node-logger": "^18.12.24"
     },
     "devDependencies": {
