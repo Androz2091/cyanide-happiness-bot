@@ -17,15 +17,7 @@ module.exports = class extends Command {
 
     async run(message, args, data) {
         const post = posts[Math.floor(Math.random() * posts.length)];
-        const embed = new Discord.MessageEmbed()
-        .setAuthor("Cyanide & Happiness VF", this.client.user.displayAvatarURL())
-        .setTitle("Ouvrir sur Instagram")
-        .setURL(this.client.instaLink)
-        .setDescription("🎲 Post aléatoire")
-        .attachFiles([`./assets/posts/${post}`])
-        .setImage(`attachment://${post}`)
-        .setFooter(data.footer)
-        .setColor(data.color);
-        message.channel.send(embed);
+        const attachment = new Discord.MessageAttachment(`./assets/posts/${post}`, "random.png");
+        message.channel.send(attachment);
     }
 }
