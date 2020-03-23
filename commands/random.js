@@ -17,7 +17,7 @@ module.exports = class extends Command {
 
     async run(message, args, data) {
         const post = posts[Math.floor(Math.random() * posts.length)];
-        const attachment = new Discord.MessageAttachment(`./assets/posts/${post}`, "random.png");
+        const attachment = new Discord.MessageAttachment(`./assets/posts/${post}`, `random.${post.split(".")[1]}`);
         message.channel.send(attachment);
     }
 }
