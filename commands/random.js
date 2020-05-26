@@ -16,6 +16,10 @@ module.exports = class extends Command {
     }
 
     async run(message, args, data) {
+        if(message.channel.id !== this.client.config.randomChannel && message.channel.id !== this.client.config.cmdChannel){
+            message.delete();
+            return message.author.send(":x: Cette commande doit être executée dans le salon <#"+this.client.config.randomChannel+"> !");
+        }
         const post = posts[Math.floor(Math.random() * posts.length)];
         const attachment = new Discord.MessageAttachment(`./assets/posts/${post}`, `random.${post.split(".")[1]}`);
         message.channel.send(attachment);
