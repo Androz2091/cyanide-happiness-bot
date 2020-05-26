@@ -13,6 +13,3 @@ bot.log
 
 # Mac os
 .DS_Store
-
-# Assets
-assets/posts/*
